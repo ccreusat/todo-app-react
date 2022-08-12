@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import { TodoActionsProps } from "../TodoList";
+import { useTodos } from "../../features/context";
 
-interface FooterProps extends TodoActionsProps {
+interface FooterProps {
   todosLength: any;
   count: string;
   filterNames: any[];
@@ -11,17 +11,18 @@ interface FooterProps extends TodoActionsProps {
 const Footer = ({
   todosLength,
   count,
-  onClearTodo,
   filterNames,
   onChangeFilter,
 }: FooterProps) => {
-  const classnames = clsx("todos-footer", {
+  const { handleClearTodo } = useTodos();
+
+  const classNames = clsx("todos-footer", {
     flex: todosLength > 0,
     none: todosLength < 0,
   });
 
   return (
-    <footer id="footer" className={classnames}>
+    <footer id="footer" className={classNames}>
       <p id="count" className="todos-footer__count">
         {count}
       </p>
@@ -50,7 +51,7 @@ const Footer = ({
         className="clear"
         aria-label="Clear Completed"
         id="clear"
-        onClick={() => onClearTodo?.()}
+        onClick={() => handleClearTodo()}
       >
         Clear Completed
       </span>

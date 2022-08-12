@@ -1,7 +1,10 @@
 import { TodoItemProps } from "../components/TodoItem";
-// import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type Actions =
+  | {
+      type: "fetch";
+      todos: TodoItemProps[];
+    }
   | {
       type: "added";
       id: string;
@@ -14,8 +17,11 @@ type Actions =
       id: string;
     };
 
-export default function todosReducer(todos: any, action: Actions) {
+export default function todosReducer(todos: TodoItemProps[], action: Actions) {
   switch (action.type) {
+    case "fetch": {
+      return action.todos;
+    }
     case "added": {
       return [
         ...todos,

@@ -6,17 +6,10 @@ import AddTodo from "../components/AddTodo";
 import TodoList from "../components/TodoList";
 import Footer from "../components/Footer";
 
-import { TodoItemProps } from "../components/TodoItem";
 import { useTodos } from "../features/context";
 
 const App = () => {
-  const {
-    todos,
-    handleAddTodo,
-    handleRemoveTodo,
-    handleCompleteTodo,
-    handleClearTodo,
-  } = useTodos();
+  const { todos } = useTodos();
 
   const [filter, setFilter] = useState("All");
 
@@ -44,22 +37,12 @@ const App = () => {
 
       <div className="todo-app">
         <Header />
-
-        <AddTodo onAddTodo={handleAddTodo} />
-
-        <TodoList
-          todos={todos}
-          filter={filter}
-          filtersObject={filtersObject}
-          onRemoveTodo={handleRemoveTodo}
-          onCompleteTodo={handleCompleteTodo}
-        />
-
+        <AddTodo />
+        <TodoList filter={filter} filtersObject={filtersObject} />
         <Footer
           count={countItemsText}
           todosLength={todosLength}
           filterNames={filterNames}
-          onClearTodo={handleClearTodo}
           onChangeFilter={handleChangeFilter}
         />
       </div>

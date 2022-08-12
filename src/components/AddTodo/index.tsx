@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { TodoActionsProps } from "../TodoList";
+import { useTodos } from "../../features/context";
+import useFetch from "../../hooks/useFetch";
 
-interface AddTodoProps extends TodoActionsProps {}
+const AddTodo = () => {
+  const { handleAddTodo } = useTodos();
 
-const AddTodo = ({ onAddTodo }: AddTodoProps) => {
   const [value, setValue] = useState("");
 
   const handleOnSubmit = ({
@@ -14,7 +15,7 @@ const AddTodo = ({ onAddTodo }: AddTodoProps) => {
 
   const handleOnAdd = () => {
     if (value) {
-      onAddTodo?.(value);
+      handleAddTodo?.(value);
       setValue("");
     }
   };
@@ -22,7 +23,7 @@ const AddTodo = ({ onAddTodo }: AddTodoProps) => {
   const handleOnKeyPress = ({ key }: React.KeyboardEvent<object>) => {
     if (value) {
       if (key === "Enter" || key === "13") {
-        onAddTodo?.(value);
+        handleAddTodo?.(value);
         setValue("");
       }
     }

@@ -1,25 +1,13 @@
 import clsx from "clsx";
-import { TodoActionsProps } from "../TodoList";
+import { useTodos } from "../../features/context";
 
-export interface TodoItemProps extends TodoActionsProps {
+export interface TodoItemProps {
   id: string;
   text: string;
   isCompleted: boolean;
 }
-const TodoItem = ({
-  id,
-  text,
-  isCompleted,
-  onCompleteTodo,
-  onRemoveTodo,
-}: TodoItemProps) => {
-  const handleCompleteTodo = (id: string) => {
-    onCompleteTodo?.(id);
-  };
-
-  const handleRemoveTodo = (id: string) => {
-    onRemoveTodo?.(id);
-  };
+const TodoItem = ({ id, text, isCompleted }: TodoItemProps) => {
+  const { handleCompleteTodo, handleRemoveTodo } = useTodos();
 
   const classNames = clsx({
     todo: true,
